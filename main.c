@@ -1,3 +1,4 @@
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,6 +34,10 @@ void PrintPoint(struct Point p) {
 
 void PrintTrial(struct Trial t) {
     printf("nthRun: %d, trialNumber: %d, time: %f\n", t.nthRun, t.trialNumber, t.time);
+}
+
+double get_distance(struct Point a, struct Point b) {
+    return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
 }
 
 bool containsPoint(struct Point P[], int currentIndex) {
@@ -120,8 +125,105 @@ void quickSort(struct Point P[], int to_sort[], int low, int high, int (*f)(stru
 }
 
 struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int Pyi[], int n) {
-    struct Answer test = { .distance = 0, .index1 = 0, .index2 = 0 };
-    return test;
+    struct Answer answer = { .distance = INT_MAX, .index1 = -1, .index2 = -2 };
+    if (n <= 3) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                double d = get_distance(P[Pxi[i], P[Pxi[j]]])
+                if (d < answer.distance) {
+                    answer.distance = d;
+                    answer.index1 = Pxi[i];
+                    answer.index2 = Pxi[j];
+                }
+            }
+        }
+        return answer;
+    }
+    
+    int half = n / 2;
+    if (half % 2 != 0) {
+        half += 1;
+    }
+    int *Qx = malloc(sizeof(int)*(half));
+    int *Qy = malloc(sizeof(int)*(half));
+    int *Rx = malloc(sizeof(int)*(n-half));
+    int *Ry = malloc(sizeof(int)*(n-half));
+    
+    for (int i = 0; i < half; i++) {
+        Qx[i] = Pxi[i];
+        Qy[i] = Pxi[i];
+    }
+    quickSort(P, Qy, 0, half, y_partition);
+    
+    for (int i = half; i < n; i++) {
+        Rx[i] = Pxi[i];
+        Ry[i] = Pxi[i];
+    }
+    quickSort(P, Ry, 0, n-half, y_partition);
+    
+    q_answer = DivideAndConquerClosestPoints_Rec(P, Qx, Qy, half);
+    r_answer = DivideAndConquerClosestPoints_Rec(P, Rx, Ry, n-half);
+    
+    double delta = q_answer.distance;
+    answer.distance = q_answer.distance;
+    answer.index1 = q_answer.index1;
+    answer.index2 = q_answer.index2;
+    if (r_answer.distance < q_answer.distance) {
+        delta = r_answer.distance;
+        answer.distance = r_answer.distance;
+        answer.index1 = r_answer.index1;
+        answer.index2 = r_answer.index2;
+    }
+    
+    int q_points = 1;
+    for (int i = half-2; i >= 0; i--) {
+        if ((P[Qx[half-1].x - P[Qx[i]].x) < delta) {
+            q_points += 1;
+        }
+        else {
+            break;
+        }
+    }
+    
+    int r_points = 0;
+    for (int i = 0; i < n-half; i++) {
+        if ((P[Rx[i]].x - P[Qx[half-1]].x) < delta) {
+            r_points += 1;
+        }
+        else {
+            break;
+        }
+    }
+    
+    int *S = malloc(sizeof(int)*(q_points + r_points));
+    for (int i = 0; i < q_points; i++) {
+        S[i] = Qx[(half-1) - i];
+    }
+    int r_iteratror = 0;
+    for (int i = q_points; i < q_points + r_points; i++) {
+        S[i] = Rx[r_iteratror];
+        r_iteratror += 1;
+    }
+    quickSort(P, S, 0, (q_points + r_points), y_partition);
+    
+    free(Qx);
+    free(Qy);
+    free(Rx);
+    free(Ry);
+    
+    for (int i = 0; i < (q_points + r_points); i++) {
+        for (j = 1; j <= 15; j++) {
+            double d = get_distance(P[S[i]], P[S[j]]);
+            if (d < answer.distance) {
+                answer.distance = d;
+                answer.index1 = S[i];
+                answer.index2 = S[j];
+            }
+        }
+    }
+    
+    free(S)
+    return answer;
 }
 
 struct Answer DivideAndConquerClosestPoints(struct Point P[], const int n) {
@@ -160,7 +262,7 @@ struct Answer BruteForceClosestPoints(struct Point P[], const int n) {
     struct Answer answer = { .distance = INT_MAX, .index1 = -1, .index2 = -1};
     for (int i = 0; i < n-1; i++) {
         for (int j = i + 1; j < n; j++) {
-            double d = sqrt(pow((P[i].x - P[j].x), 2) + pow((P[i].y - P[j].y), 2));
+            double d = get_distance(P[i], P[j]);
             if (d < answer.distance) {
                 answer.distance = d;
                 answer.index1 = i;
@@ -188,8 +290,6 @@ int main(void) {
         for (int j = 0; j < trials; j++) {
             struct Point *P = malloc(sizeof(struct Point)*n);
             fillWithRandomPoints(P, n);
-            CuteTest(P, n);
-            return 0;
             clock_gettime(CLOCK_REALTIME, &bts);
             BruteForceClosestPoints(P, n);
             clock_gettime(CLOCK_REALTIME, &ets);
@@ -239,5 +339,3 @@ int main(void) {
     return 0;
 
 }
-
-

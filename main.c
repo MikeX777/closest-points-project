@@ -154,10 +154,12 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
         Qy[i] = Pxi[i];
     }
     quickSort(P, Qy, 0, half, y_partition);
-    
+
+    int r_iterator = 0;
     for (int i = half; i < n; i++) {
-        Rx[i] = Pxi[i];
-        Ry[i] = Pxi[i];
+        Rx[r_iterator] = Pxi[i];
+        Ry[r_iterator] = Pxi[i];
+        r_iterator += 1;
     }
     quickSort(P, Ry, 0, n-half, y_partition);
     
@@ -200,7 +202,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
         S[i] = Qx[(half-1) - i];
     }
     int r_iteratror = 0;
-    for (int i = q_points; i < q_points + r_points; i++) {
+    for (int i = q_points; i < (q_points + r_points); i++) {
         S[i] = Rx[r_iteratror];
         r_iteratror += 1;
     }
@@ -213,7 +215,10 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
     
     for (int i = 0; i < (q_points + r_points); i++) {
         for (int j = 1; j <= 15; j++) {
-            double d = get_distance(P[S[i]], P[S[j]]);
+            if ((i + j) >= (q_points + r_points)) {
+                break;
+            }
+            double d = get_distance(P[S[i]], P[S[i + j]]);
             if (d < answer.distance) {
                 answer.distance = d;
                 answer.index1 = S[i];

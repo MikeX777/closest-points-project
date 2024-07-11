@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +26,7 @@ struct timespec bts, ets;
 
 // const int MAX_RAND_VALUE = 32756;
 const int MAX_RAND_VALUE = 50;
+const int INT_MAX = 32756;
 
 void PrintPoint(struct Point p) {
     printf("X: %d, Y: %d\n", p.x, p.y);
@@ -129,7 +129,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
     if (n <= 3) {
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
-                double d = get_distance(P[Pxi[i], P[Pxi[j]]])
+                double d = get_distance(P[Pxi[i]], P[Pxi[j]]);
                 if (d < answer.distance) {
                     answer.distance = d;
                     answer.index1 = Pxi[i];
@@ -161,8 +161,8 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
     }
     quickSort(P, Ry, 0, n-half, y_partition);
     
-    q_answer = DivideAndConquerClosestPoints_Rec(P, Qx, Qy, half);
-    r_answer = DivideAndConquerClosestPoints_Rec(P, Rx, Ry, n-half);
+    struct Answer q_answer = DivideAndConquerClosestPoints_Rec(P, Qx, Qy, half);
+    struct Answer r_answer = DivideAndConquerClosestPoints_Rec(P, Rx, Ry, n-half);
     
     double delta = q_answer.distance;
     answer.distance = q_answer.distance;
@@ -177,7 +177,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
     
     int q_points = 1;
     for (int i = half-2; i >= 0; i--) {
-        if ((P[Qx[half-1].x - P[Qx[i]].x) < delta) {
+        if ((P[Qx[half-1]].x - P[Qx[i]].x) < delta) {
             q_points += 1;
         }
         else {
@@ -212,7 +212,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
     free(Ry);
     
     for (int i = 0; i < (q_points + r_points); i++) {
-        for (j = 1; j <= 15; j++) {
+        for (int j = 1; j <= 15; j++) {
             double d = get_distance(P[S[i]], P[S[j]]);
             if (d < answer.distance) {
                 answer.distance = d;
@@ -222,7 +222,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
         }
     }
     
-    free(S)
+    free(S);
     return answer;
 }
 

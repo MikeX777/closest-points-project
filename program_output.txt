@@ -1,0 +1,132 @@
+Nth Run: 0, Trial: 0, Distance Matches: 1
+Nth Run: 0, Trial: 1, Distance Matches: 1
+Nth Run: 0, Trial: 2, Distance Matches: 1
+Nth Run: 0, Trial: 3, Distance Matches: 1
+Nth Run: 0, Trial: 4, Distance Matches: 1
+Nth Run: 0, Trial: 5, Distance Matches: 1
+Nth Run: 0, Trial: 6, Distance Matches: 1
+Nth Run: 0, Trial: 7, Distance Matches: 1
+Nth Run: 0, Trial: 8, Distance Matches: 1
+Nth Run: 0, Trial: 9, Distance Matches: 1
+Nth Run: 1, Trial: 0, Distance Matches: 1
+Nth Run: 1, Trial: 1, Distance Matches: 1
+Nth Run: 1, Trial: 2, Distance Matches: 1
+Nth Run: 1, Trial: 3, Distance Matches: 1
+Nth Run: 1, Trial: 4, Distance Matches: 1
+Nth Run: 1, Trial: 5, Distance Matches: 1
+Nth Run: 1, Trial: 6, Distance Matches: 1
+Nth Run: 1, Trial: 7, Distance Matches: 1
+Nth Run: 1, Trial: 8, Distance Matches: 1
+Nth Run: 1, Trial: 9, Distance Matches: 1
+Nth Run: 2, Trial: 0, Distance Matches: 1
+Nth Run: 2, Trial: 1, Distance Matches: 1
+Nth Run: 2, Trial: 2, Distance Matches: 1
+Nth Run: 2, Trial: 3, Distance Matches: 1
+Nth Run: 2, Trial: 4, Distance Matches: 1
+Nth Run: 2, Trial: 5, Distance Matches: 1
+Nth Run: 2, Trial: 6, Distance Matches: 1
+Nth Run: 2, Trial: 7, Distance Matches: 1
+Nth Run: 2, Trial: 8, Distance Matches: 1
+Nth Run: 2, Trial: 9, Distance Matches: 1
+Nth Run: 3, Trial: 0, Distance Matches: 1
+Nth Run: 3, Trial: 1, Distance Matches: 1
+Nth Run: 3, Trial: 2, Distance Matches: 1
+Nth Run: 3, Trial: 3, Distance Matches: 1
+Nth Run: 3, Trial: 4, Distance Matches: 1
+Nth Run: 3, Trial: 5, Distance Matches: 1
+Nth Run: 3, Trial: 6, Distance Matches: 1
+Nth Run: 3, Trial: 7, Distance Matches: 1
+Nth Run: 3, Trial: 8, Distance Matches: 1
+Nth Run: 3, Trial: 9, Distance Matches: 1
+Nth Run: 4, Trial: 0, Distance Matches: 1
+Nth Run: 4, Trial: 1, Distance Matches: 1
+Nth Run: 4, Trial: 2, Distance Matches: 1
+Nth Run: 4, Trial: 3, Distance Matches: 1
+Nth Run: 4, Trial: 4, Distance Matches: 1
+Nth Run: 4, Trial: 5, Distance Matches: 1
+Nth Run: 4, Trial: 6, Distance Matches: 1
+Nth Run: 4, Trial: 7, Distance Matches: 1
+Nth Run: 4, Trial: 8, Distance Matches: 1
+Nth Run: 4, Trial: 9, Distance Matches: 1
+Nth Run: 5, Trial: 0, Distance Matches: 1
+Nth Run: 5, Trial: 1, Distance Matches: 1
+Nth Run: 5, Trial: 2, Distance Matches: 1
+Nth Run: 5, Trial: 3, Distance Matches: 1
+Nth Run: 5, Trial: 4, Distance Matches: 1
+Nth Run: 5, Trial: 5, Distance Matches: 1
+Nth Run: 5, Trial: 6, Distance Matches: 1
+Nth Run: 5, Trial: 7, Distance Matches: 1
+Nth Run: 5, Trial: 8, Distance Matches: 1
+Nth Run: 5, Trial: 9, Distance Matches: 1
+Nth Run: 6, Trial: 0, Distance Matches: 1
+Nth Run: 6, Trial: 1, Distance Matches: 1
+Nth Run: 6, Trial: 2, Distance Matches: 1
+Nth Run: 6, Trial: 3, Distance Matches: 1
+Nth Run: 6, Trial: 4, Distance Matches: 1
+Nth Run: 6, Trial: 5, Distance Matches: 1
+Nth Run: 6, Trial: 6, Distance Matches: 1
+Nth Run: 6, Trial: 7, Distance Matches: 1
+Nth Run: 6, Trial: 8, Distance Matches: 1
+Nth Run: 6, Trial: 9, Distance Matches: 1
+Nth Run: 7, Trial: 0, Distance Matches: 1
+Nth Run: 7, Trial: 1, Distance Matches: 1
+Nth Run: 7, Trial: 2, Distance Matches: 1
+Nth Run: 7, Trial: 3, Distance Matches: 1
+Nth Run: 7, Trial: 4, Distance Matches: 1
+Nth Run: 7, Trial: 5, Distance Matches: 1
+Nth Run: 7, Trial: 6, Distance Matches: 1
+Nth Run: 7, Trial: 7, Distance Matches: 1
+Nth Run: 7, Trial: 8, Distance Matches: 1
+Nth Run: 7, Trial: 9, Distance Matches: 1
+Nth Run: 8, Trial: 0, Distance Matches: 1
+Nth Run: 8, Trial: 1, Distance Matches: 1
+Nth Run: 8, Trial: 2, Distance Matches: 1
+Nth Run: 8, Trial: 3, Distance Matches: 1
+Nth Run: 8, Trial: 4, Distance Matches: 1
+Nth Run: 8, Trial: 5, Distance Matches: 1
+Nth Run: 8, Trial: 6, Distance Matches: 1
+Nth Run: 8, Trial: 7, Distance Matches: 1
+Nth Run: 8, Trial: 8, Distance Matches: 1
+Nth Run: 8, Trial: 9, Distance Matches: 1
+Nth Run: 9, Trial: 0, Distance Matches: 1
+Nth Run: 9, Trial: 1, Distance Matches: 1
+Nth Run: 9, Trial: 2, Distance Matches: 1
+Nth Run: 9, Trial: 3, Distance Matches: 1
+Nth Run: 9, Trial: 4, Distance Matches: 1
+Nth Run: 9, Trial: 5, Distance Matches: 1
+Nth Run: 9, Trial: 6, Distance Matches: 1
+Nth Run: 9, Trial: 7, Distance Matches: 1
+Nth Run: 9, Trial: 8, Distance Matches: 1
+Nth Run: 9, Trial: 9, Distance Matches: 1
+
+
+
+Brute Averages
+=====================
+Number of items: 10000, Average Time (msec): 82.284840
+Number of items: 20000, Average Time (msec): 341.260260
+Number of items: 30000, Average Time (msec): 746.119080
+Number of items: 40000, Average Time (msec): 1329.000430
+Number of items: 50000, Average Time (msec): 2049.158070
+Number of items: 60000, Average Time (msec): 2964.357250
+Number of items: 70000, Average Time (msec): 3916.568160
+Number of items: 80000, Average Time (msec): 5200.959910
+Number of items: 90000, Average Time (msec): 6397.598920
+Number of items: 100000, Average Time (msec): 7814.090640
+
+
+
+Divide Averages
+=====================
+Number of items: 10000, Average Time (msec): 8.527670
+Number of items: 20000, Average Time (msec): 19.851640
+Number of items: 30000, Average Time (msec): 30.753850
+Number of items: 40000, Average Time (msec): 43.372200
+Number of items: 50000, Average Time (msec): 53.314600
+Number of items: 60000, Average Time (msec): 63.818410
+Number of items: 70000, Average Time (msec): 77.426860
+Number of items: 80000, Average Time (msec): 92.619760
+Number of items: 90000, Average Time (msec): 101.105660
+Number of items: 100000, Average Time (msec): 114.887510
+
+Process finished with exit code 0

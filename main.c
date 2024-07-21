@@ -25,9 +25,10 @@ struct Answer {
 struct timespec bts, ets;
 
 // const int MAX_RAND_VALUE = 32756;
-const int MAX_RAND_VALUE = 50;
-const int INT_MAX = 32756;
+// const int MAX_RAND_VALUE = 50;
 
+
+// region Display Functions
 void PrintPoint(struct Point p) {
     printf("X: %d, Y: %d\n", p.x, p.y);
 }
@@ -35,11 +36,9 @@ void PrintPoint(struct Point p) {
 void PrintTrial(struct Trial t) {
     printf("nthRun: %d, trialNumber: %d, time: %f\n", t.nthRun, t.trialNumber, t.time);
 }
+//endregion
 
-double get_distance(struct Point a, struct Point b) {
-    return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
-}
-
+//region Setup Functions
 bool containsPoint(struct Point P[], int currentIndex) {
     for (int i = 0; i < currentIndex; i++) {
         if (P[i].x == P[currentIndex].x && P[i].y == P[currentIndex].y) {
@@ -49,22 +48,20 @@ bool containsPoint(struct Point P[], int currentIndex) {
     return false;
 }
 
-double diff_timespec(const struct timespec *time1, const struct timespec *time0) {
-    return (time1->tv_sec - time0->tv_sec)
-        + (time1->tv_nsec - time0->tv_nsec) / 1000000000.0;
-}
-
 void fillWithRandomPoints(struct Point P[], const int n) {
     for (int i = 0; i < n; i++) {
         do {
-            // P[i].x = rand();
-            // P[i].y = rand();
-            P[i].x = rand() / (RAND_MAX / MAX_RAND_VALUE + 1);
-            P[i].y = rand() / (RAND_MAX / MAX_RAND_VALUE + 1);
+            P[i].x = rand();
+            P[i].y = rand();
+            // P[i].x = rand() / (RAND_MAX / MAX_RAND_VALUE + 1);
+            // P[i].y = rand() / (RAND_MAX / MAX_RAND_VALUE + 1);
         } while (containsPoint(P, i));
     }
 }
+//endregion
 
+
+//region QuickSort
 void int_swap(int* a, int* b) {
     const int temp = *a;
     *a = *b;
@@ -123,7 +120,24 @@ void quickSort(struct Point P[], int to_sort[], int low, int high, int (*f)(stru
         quickSort(P, to_sort, partitionIndex + 1, high, *f);
     }
 }
+//endregion
 
+
+//region Helper Functions
+double get_distance(struct Point a, struct Point b) {
+    return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
+}
+
+double get_millisecond_diff(const struct timespec *time1, const struct timespec *time0) {
+    return ((time1->tv_sec - time0->tv_sec)
+        + (time1->tv_nsec - time0->tv_nsec) / 1000000000.0) * 1000;
+}
+//endregion
+
+
+
+
+//region Divide and Conquer
 struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int Pyi[], int n) {
     struct Answer answer = { .distance = INT_MAX, .index1 = -1, .index2 = -2 };
     if (n <= 3) {
@@ -153,7 +167,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
         Qx[i] = Pxi[i];
         Qy[i] = Pxi[i];
     }
-    quickSort(P, Qy, 0, half, y_partition);
+    quickSort(P, Qy, 0, half - 1, y_partition);
 
     int r_iterator = 0;
     for (int i = half; i < n; i++) {
@@ -161,7 +175,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
         Ry[r_iterator] = Pxi[i];
         r_iterator += 1;
     }
-    quickSort(P, Ry, 0, n-half, y_partition);
+    quickSort(P, Ry, 0, n - half - 1, y_partition);
     
     struct Answer q_answer = DivideAndConquerClosestPoints_Rec(P, Qx, Qy, half);
     struct Answer r_answer = DivideAndConquerClosestPoints_Rec(P, Rx, Ry, n-half);
@@ -206,7 +220,7 @@ struct Answer DivideAndConquerClosestPoints_Rec(struct Point P[], int Pxi[], int
         S[i] = Rx[r_iteratror];
         r_iteratror += 1;
     }
-    quickSort(P, S, 0, (q_points + r_points), y_partition);
+    quickSort(P, S, 0, (q_points + r_points - 1), y_partition);
     
     free(Qx);
     free(Qy);
@@ -247,7 +261,9 @@ struct Answer DivideAndConquerClosestPoints(struct Point P[], const int n) {
     free(Pyi);
     return answer;
 }
+//endregion
 
+//region Quicksort Test
 void CuteTest(struct Point P[], const int n) {
     int *Pxi = malloc(sizeof(int)*n);
     int *Pyi = malloc(sizeof(int)*n);
@@ -262,7 +278,9 @@ void CuteTest(struct Point P[], const int n) {
         printf("X: %d\n", P[Pxi[i]].x);
     }
 }
+//endregion
 
+//region Brute Force
 struct Answer BruteForceClosestPoints(struct Point P[], const int n) {
     struct Answer answer = { .distance = INT_MAX, .index1 = -1, .index2 = -1};
     for (int i = 0; i < n-1; i++) {
@@ -278,16 +296,18 @@ struct Answer BruteForceClosestPoints(struct Point P[], const int n) {
     }
     return answer;
 }
+//endregion
 
 
 int main(void) {
     srand(time(NULL));
     const int trials = 10;
     const int max_n = 1000;
-    const int n_increment = 100;
+    const int n_increment = ;
 
     struct Trial *brute = malloc(sizeof(struct Trial) * trials * (max_n / n_increment));
     struct Trial *divide = malloc(sizeof(struct Trial) * trials * (max_n / n_increment));
+    bool *matches = malloc(sizeof(bool) * trials * (max_n / n_increment));
 
     // main test loop
     int nth_run = 0;
@@ -296,22 +316,29 @@ int main(void) {
             struct Point *P = malloc(sizeof(struct Point)*n);
             fillWithRandomPoints(P, n);
             clock_gettime(CLOCK_REALTIME, &bts);
-            BruteForceClosestPoints(P, n);
+            struct Answer brute_answer = BruteForceClosestPoints(P, n);
             clock_gettime(CLOCK_REALTIME, &ets);
 
             brute[(nth_run * trials) + j].nthRun = nth_run;
             brute[(nth_run * trials) + j].trialNumber = j;
-            brute[(nth_run * trials) + j].time = diff_timespec(&ets, &bts);
+            brute[(nth_run * trials) + j].time = get_millisecond_diff(&ets, &bts);
 
 
             clock_gettime(CLOCK_REALTIME, &bts);
-            DivideAndConquerClosestPoints(P, n);
+            struct Answer divide_answer = DivideAndConquerClosestPoints(P, n);
             clock_gettime(CLOCK_REALTIME, &ets);
 
             divide[(nth_run * trials) + j].nthRun = nth_run;
             divide[(nth_run * trials) + j].trialNumber = j;
-            divide[(nth_run * trials) + j].time = diff_timespec(&ets, &bts);
+            divide[(nth_run * trials) + j].time = get_millisecond_diff(&ets, &bts);
             free(P);
+
+            bool match = brute_answer.distance == divide_answer.distance;
+            matches[(nth_run * trials) + j] = match;
+            // if (!match) {
+            //     printf("Brute: Distance: %f, Index1: %d, Index2: %d\n", brute_answer.distance, brute_answer.index1, brute_answer.index2);
+            //     printf("Divide: Distance: %f, Index1: %d, Index2: %d\n", divide_answer.distance, divide_answer.index1, divide_answer.index2);
+            // }
         }
         nth_run += 1;
     }
@@ -319,6 +346,15 @@ int main(void) {
     int brute_average[nth_run + 1];
     int divide_average[nth_run +1];
 
+    printf("\n\n\n");
+    // Print accuracy
+    for (int i = 0; i < nth_run; i++) {
+        for (int j = 0; j < trials; j++) {
+            printf("Nth Run: %d, Trial: %d, Distance Matches: %d\n", i, j, matches[(i*trials) + j]);
+        }
+    }
+
+    printf("\n\n\n");
     // Calculate and Print Brute Averages
     printf("Brute Averages\n=====================\n");
     for (int i = 0; i < nth_run; i++) {
@@ -326,11 +362,10 @@ int main(void) {
         for (int j = 0; j < trials; j++) {
             combined += brute[(i * trials) + j].time;
         }
-        printf("Number of items: %d, Average Time: %f\n", n_increment * (i + 1), combined / (double)trials);
+        printf("Number of items: %d, Average Time (msec): %f\n", n_increment * (i + 1), combined / (double)trials);
     }
 
-    printf("\n\n");
-
+    printf("\n\n\n");
     // Calculate and Print Divide Averages
     printf("Divide Averages\n=====================\n");
     for (int i = 0; i < nth_run; i++) {
@@ -338,9 +373,12 @@ int main(void) {
         for (int j = 0; j < trials; j++) {
             combined += divide[(i * trials) + j].time;
         }
-        printf("Number of items: %d, Average Time: %f\n", n_increment * (i + 1), combined / (double)trials);
+        printf("Number of items: %d, Average Time (msec): %f\n", n_increment * (i + 1), combined / (double)trials);
 
     }
-    return 0;
 
+    free(brute);
+    free(divide);
+    free(matches);
+    return 0;
 }
